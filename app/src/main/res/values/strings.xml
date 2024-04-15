@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Hobbyt</string>
+    <string name="title_group">Group</string>
+    <string name="title_recommendations">Posts</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_user">User</string>
+</resources>
