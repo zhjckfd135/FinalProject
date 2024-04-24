@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Hobbyt</string>
-    <string name="title_group">Group</string>
-    <string name="title_recommendations">Posts</string>
+    <string name="app_name">List</string>
+    <string name="title_home">Home</string>
+    <string name="title_records">Records</string>
     <string name="title_chat">Chat</string>
     <string name="title_user">User</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

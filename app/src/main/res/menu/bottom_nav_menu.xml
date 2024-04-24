@@ -2,14 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_group"
-        android:icon="@drawable/ic_groups"
-        android:title="@string/title_group" />
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_recommendations"
         android:icon="@drawable/ic_recommendations"
-        android:title="@string/title_recommendations" />
+        android:title="@string/title_records" />
+    <item
+        android:id="@+id/navigation_none"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_chat"
