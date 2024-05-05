@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">6dp</dimen>
     <dimen name="record_element_height">130dp</dimen>
+    <dimen name="authorization_field_width">200dp</dimen>
+    <dimen name="authorization_field_margin">3dp</dimen>
 </resources>

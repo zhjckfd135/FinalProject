@@ -1,5 +1,6 @@
 package com.example.hobbyt;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        Intent intent = new Intent(this, AuthorizationActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
    }
 
-    private void setFragment(Fragment fragment){
+    public void setFragment(Fragment fragment){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutMain, fragment);

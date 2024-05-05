@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/authorization_field_width"
+    android:layout_height="wrap_content"
+    tools:context=".LoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+
+        <EditText
+            android:id="@+id/editTextEmailAuthorization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:layout_margin="@dimen/authorization_field_margin"/>
+
+        <EditText
+            android:id="@+id/editTextPasswordAuthorization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:layout_margin="@dimen/authorization_field_margin"/>
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:background="@drawable/button"
+            android:layout_margin="@dimen/authorization_field_margin"/>
+
+        <TextView
+            android:id="@+id/textRegisterLogIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/authorization_field_margin"
+            android:gravity="center"
+            android:onClick="onClickSignUp"
+            android:text="@string/sign_up_link"
+            android:textColor="@color/link" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

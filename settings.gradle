@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Hobbyt"
+rootProject.name = "MyNotebook"
 include ':app'
