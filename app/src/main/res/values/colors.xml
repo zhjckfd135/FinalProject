@@ -10,5 +10,7 @@
     <color name="background">#f8ebd3</color>
     <color name="foreground">#FFC45F</color>
     <color name="button">#521808</color>
+    <color name="edit_text_text">#521808</color>
+    <color name="edit_text_hint">#A59691</color>
     <color name="link">#C78400</color>
 </resources>

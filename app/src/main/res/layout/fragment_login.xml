@@ -19,6 +19,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
+            android:background="@drawable/edittext"
+            android:padding="@dimen/edit_text_padding"
+            android:textColor="@color/edit_text_text"
+            android:hint="Email..."
+            android:textColorHint="@color/edit_text_hint"
             android:layout_margin="@dimen/authorization_field_margin"/>
 
         <EditText
@@ -27,6 +32,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
+            android:background="@drawable/edittext"
+            android:padding="@dimen/edit_text_padding"
+            android:textColor="@color/edit_text_text"
+            android:hint="Password..."
+            android:textColorHint="@color/edit_text_hint"
             android:layout_margin="@dimen/authorization_field_margin"/>
 
         <Button
@@ -34,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:background="@drawable/button"
+            android:backgroundTint="@color/button"
             android:layout_margin="@dimen/authorization_field_margin"/>
 
         <TextView

@@ -6,38 +6,58 @@
     tools:context=".SignupFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_margin="@dimen/authorization_field_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextFirstNameAuthorization"
+                android:layout_width="142dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/authorization_field_margin"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:padding="@dimen/edit_text_padding"
+                android:textColorHint="@color/edit_text_hint"
+                android:hint="First name..."
+                android:textColor="@color/edit_text_text"/>
+
+            <EditText
+                android:id="@+id/editTextLastNameAuthorization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:background="@drawable/edittext"
+                android:padding="@dimen/edit_text_padding"
+                android:layout_margin="@dimen/authorization_field_margin"
+                android:textColorHint="@color/edit_text_hint"
+                android:hint="Last name..."
+                android:textColor="@color/edit_text_text"
+                />
+        </LinearLayout>
+
+
 
         <EditText
             android:id="@+id/editTextEmailAuthorization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:background="@drawable/edittext"
             android:inputType="textEmailAddress"
+            android:padding="@dimen/edit_text_padding"
             android:layout_margin="@dimen/authorization_field_margin"
+            android:textColorHint="@color/edit_text_hint"
+            android:hint="Email name..."
+            android:textColor="@color/edit_text_text"
             />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="left"
-            android:layout_margin="@dimen/authorization_field_margin">
-            <EditText
-                android:id="@+id/editTextConfirmEmailAuthorization"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
 
 
         <EditText
@@ -46,7 +66,12 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:layout_margin="@dimen/authorization_field_margin"/>
+            android:padding="@dimen/edit_text_padding"
+            android:background="@drawable/edittext"
+            android:layout_margin="@dimen/authorization_field_margin"
+            android:textColorHint="@color/edit_text_hint"
+            android:hint="Password..."
+            android:textColor="@color/edit_text_text"/>
 
         <EditText
             android:id="@+id/editTextConfirmPasswordAuthorization"
@@ -54,15 +79,20 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:layout_margin="@dimen/authorization_field_margin"/>
-
+            android:background="@drawable/edittext"
+            android:padding="@dimen/edit_text_padding"
+            android:layout_margin="@dimen/authorization_field_margin"
+            android:textColorHint="@color/edit_text_hint"
+            android:hint="Confirm password..."
+            android:textColor="@color/edit_text_text"/>
 
         <Button
             android:id="@+id/buttonSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
-            android:background="@drawable/button"/>
+            android:backgroundTint="@color/button"
+            />
 
         <TextView
             android:id="@+id/textBackSignUp"
