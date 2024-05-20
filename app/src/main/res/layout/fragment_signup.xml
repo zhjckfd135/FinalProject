@@ -18,7 +18,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextFirstNameAuthorization"
+                android:id="@+id/editTextFirstNameSignup"
                 android:layout_width="142dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/authorization_field_margin"
@@ -30,7 +30,7 @@
                 android:textColor="@color/edit_text_text"/>
 
             <EditText
-                android:id="@+id/editTextLastNameAuthorization"
+                android:id="@+id/editTextLastNameSignup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -46,7 +46,7 @@
 
 
         <EditText
-            android:id="@+id/editTextEmailAuthorization"
+            android:id="@+id/editTextEmailSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -61,7 +61,7 @@
 
 
         <EditText
-            android:id="@+id/editTextPasswordAuthorization"
+            android:id="@+id/editTextPasswordSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -74,7 +74,7 @@
             android:textColor="@color/edit_text_text"/>
 
         <EditText
-            android:id="@+id/editTextConfirmPasswordAuthorization"
+            android:id="@+id/editTextConfirmPasswordSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -87,7 +87,7 @@
             android:textColor="@color/edit_text_text"/>
 
         <Button
-            android:id="@+id/buttonSignUp"
+            android:id="@+id/buttonSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
@@ -95,7 +95,7 @@
             />
 
         <TextView
-            android:id="@+id/textBackSignUp"
+            android:id="@+id/textBackSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

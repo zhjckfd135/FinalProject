@@ -14,7 +14,7 @@
 
 
         <EditText
-            android:id="@+id/editTextEmailAuthorization"
+            android:id="@+id/editTextEmailLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -27,7 +27,7 @@
             android:layout_margin="@dimen/authorization_field_margin"/>
 
         <EditText
-            android:id="@+id/editTextPasswordAuthorization"
+            android:id="@+id/editTextPasswordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -48,7 +48,7 @@
             android:layout_margin="@dimen/authorization_field_margin"/>
 
         <TextView
-            android:id="@+id/textRegisterLogIn"
+            android:id="@+id/textRegisterLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/authorization_field_margin"

@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -73,13 +74,13 @@ public class SignupFragment extends Fragment {
 
     private View initFields(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
-        backText = (TextView) view.findViewById(R.id.textBackSignUp);
-        signupButton = (Button) view.findViewById(R.id.buttonSignUp);
-        editTextFirstName = (EditText) view.findViewById(R.id.editTextFirstNameAuthorization);
-        editTextLastName = (EditText) view.findViewById(R.id.editTextLastNameAuthorization);
-        editTextEmail = (EditText) view.findViewById(R.id.editTextEmailAuthorization);
-        editTextPassword = (EditText) view.findViewById(R.id.editTextPasswordAuthorization);
-        editTextPasswordConfirm = (EditText) view.findViewById(R.id.editTextConfirmPasswordAuthorization);
+        backText = (TextView) view.findViewById(R.id.textBackSignup);
+        signupButton = (Button) view.findViewById(R.id.buttonSignup);
+        editTextFirstName = (EditText) view.findViewById(R.id.editTextFirstNameSignup);
+        editTextLastName = (EditText) view.findViewById(R.id.editTextLastNameSignup);
+        editTextEmail = (EditText) view.findViewById(R.id.editTextEmailSignup);
+        editTextPassword = (EditText) view.findViewById(R.id.editTextPasswordSignup);
+        editTextPasswordConfirm = (EditText) view.findViewById(R.id.editTextConfirmPasswordSignup);
 
         return view;
     }
@@ -108,13 +109,24 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_LONG).show();
                     setLoginFragment();
                 }
+                if(response.equalsIgnoreCase("This email is busy")){
+                    Toast.makeText(getActivity(), "This email is busy", Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 signupButton.setText("Sign Up");
                 signupButton.setClickable(true);
-                Toast.makeText(getActivity(), "Registration Un-Successful", Toast.LENGTH_LONG).show();
+                String response;
+                try {
+                     response = new String(error.networkResponse.data,"UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    response = "UnsupportedEncodingException";
+                    Log.e("SignIn", e.toString());
+                }
+                Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
                 Log.w("SignUp" ,error.toString());
             }
         }){
