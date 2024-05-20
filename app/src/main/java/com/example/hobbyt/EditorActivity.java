@@ -1,6 +1,11 @@
 package com.example.hobbyt;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -12,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class EditorActivity extends AppCompatActivity {
 
     EditText editText;
+    Button backButton;
+    Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +31,41 @@ public class EditorActivity extends AppCompatActivity {
             return insets;
         });
 
+        InitFields();
+
+        SetListeners();
+    }
+
+    private void SetListeners() {
+        backButton.setOnClickListener(v -> {
+            onCreateBackDialog(this.getIntent().getExtras()).show();
+        });
+    }
+
+    private void InitFields() {
         editText = findViewById(R.id.editTextEditor);
-        editText.setSelection(editText.getText().length());
+        backButton = findViewById(R.id.editorBackButton);
+        saveButton = findViewById(R.id.editorSaveButton);
+    }
+
+    private void GoToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private Dialog onCreateBackDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit?")
+                .setMessage("Everything that is written will not be saved")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        GoToMain();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        return builder.create();
     }
 }

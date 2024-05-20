@@ -40,18 +40,22 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/editorBackButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Back"
+                android:backgroundTint="@color/button"
+                android:layout_margin="5dp"/>
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/editorSaveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Save"
+                android:backgroundTint="@color/button"
+                android:layout_margin="5dp"/>
         </LinearLayout>
 
     </LinearLayout>
