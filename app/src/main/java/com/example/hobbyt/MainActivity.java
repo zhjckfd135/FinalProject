@@ -18,7 +18,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //GoToAuthorization();
+        GoToActivity(AuthorizationActivity.class);
+    }
+
+    private void GoToActivity(Class<?> c){
+        Intent intent = new Intent(this, c);
+        startActivity(intent);
     }
 
     private void GoToAuthorization() {
