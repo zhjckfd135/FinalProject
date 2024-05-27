@@ -1,41 +1,40 @@
 package com.example.hobbyt;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.hobbyt.databinding.ActivityMainBinding;
+import com.example.hobbyt.modules.User;
+import com.example.hobbyt.utils.UrlMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        GoToActivity(AuthorizationActivity.class);
-    }
+    private SharedPreferences loginSharedPreferences;
 
     private void GoToActivity(Class<?> c){
         Intent intent = new Intent(this, c);
         startActivity(intent);
     }
-
-    private void GoToAuthorization() {
-        Intent intent = new Intent(this, AuthorizationActivity.class);
-        startActivity(intent);
-    }
-
-    private void GoToEditor() {
-        Intent intent = new Intent(this, EditorActivity.class);
-        startActivity(intent);
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationViewListener();
         binding.addPostButton.setOnClickListener(v -> {
-            GoToEditor();
+            GoToActivity(EditorActivity.class);
         });
+
+        loginSharedPreferences = getSharedPreferences(LoginFragment.LOGIN_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     private void NavigationViewListener() {
@@ -71,5 +72,52 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(!loginSharedPreferences.contains(LoginFragment.USER_ID_PREFERENCES)) {
+            GoToActivity(AuthorizationActivity.class);
+        }
+        loginTokenUser();
+    }
+
+    private void loginTokenUser(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        UrlMap urlMap = new UrlMap(UrlBase.LOGIN_TOKEN);
+        urlMap.put("id", loginSharedPreferences.getString(LoginFragment.USER_ID_PREFERENCES, ""));
+        urlMap.put("token", loginSharedPreferences.getString(LoginFragment.TOKEN_PREFERENCES, ""));
+
+        queue.add(getRequestJsonUser(urlMap.generateUrl()));
+    }
+
+    private @NonNull JsonObjectRequest getRequestJsonUser(String url) {
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    User user = new User(response.getInt("user_id"),
+                            response.getString("first_name"),
+                            response.getString("last_name"),
+                            response.getString("email"),
+                            response.getString("password")
+
+                    );
+
+                    Toast.makeText(getBaseContext(), "Welcome " + user.getFirst_name() + " " + user.getLast_name(), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    Log.w("Login" ,e.toString());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        return jsonRequest;
     }
 }

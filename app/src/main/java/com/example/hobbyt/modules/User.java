@@ -1,7 +1,9 @@
 package com.example.hobbyt.modules;
 
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
 
     private int user_id;
@@ -9,6 +11,7 @@ public class User {
     private String last_name;
     private String email;
     private String password;
+
     public User(int user_id, String first_name, String last_name, String email, String password) {
         this.user_id = user_id;
         this.first_name = first_name;

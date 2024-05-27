@@ -1,7 +1,11 @@
 package com.example.hobbyt;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -20,8 +24,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.hobbyt.modules.User;
+import com.example.hobbyt.utils.UrlMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +38,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginFragment extends Fragment {
+    public static final String LOGIN_PREFERENCES = "login";
+    public static final String USER_ID_PREFERENCES = "user_id";
+    public static final String TOKEN_PREFERENCES = "token";
 
     private View view;
     private TextView signupText;
@@ -39,15 +48,13 @@ public class LoginFragment extends Fragment {
     private EditText passwordEdit;
     private Button loginButton;
 
-    public LoginFragment() {
-
-    }
+    private SharedPreferences sharedPreferences;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        sharedPreferences = getActivity().getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
 
     }
 
@@ -91,26 +98,57 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    public void loginUser(){
+    private void loginUser(){
         if(!checkFields()){
             Toast.makeText(getActivity(), "Please Complete all Fields", Toast.LENGTH_LONG).show();
             return;
         }
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String email = emailEdit.getText().toString();
-        String password = passwordEdit.getText().toString();
-        String url;
-        try {
-            url = UrlBase.LOGIN_USER + "?email=" + URLEncoder.encode(email, "UTF-8") + "&password=" + URLEncoder.encode(password, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            errorLogin("Error");
-            return;
-        }
+        UrlMap urlMap = new UrlMap(UrlBase.LOGIN_USER);
+        urlMap.put("email", emailEdit.getText().toString());
+        urlMap.put("password", passwordEdit.getText().toString());
 
         loginButton.setText("Loading...");
         loginButton.setClickable(false);
 
+        queue.add(getRequestTokenUser(urlMap.generateUrl()));
+    }
+
+    private void loginTokenUser(){
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        UrlMap urlMap = new UrlMap(UrlBase.LOGIN_TOKEN);
+        urlMap.put("id", sharedPreferences.getString(USER_ID_PREFERENCES, ""));
+        urlMap.put("token", sharedPreferences.getString(TOKEN_PREFERENCES, ""));
+
+        queue.add(getRequestJsonUser(urlMap.generateUrl()));
+    }
+
+    private StringRequest getRequestTokenUser(String url) {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.isEmpty()) errorLogin("No response");
+
+                String[] data = response.split("\n");
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(TOKEN_PREFERENCES, data[0]);
+                editor.putString(USER_ID_PREFERENCES, data[1]);
+                editor.apply();
+
+                loginTokenUser();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                errorResponse(error);
+            }
+        });
+
+        return stringRequest;
+    }
+
+    private @NonNull JsonObjectRequest getRequestJsonUser(String url) {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -125,7 +163,8 @@ public class LoginFragment extends Fragment {
                                         response.getString("password")
 
                                             );
-                    Toast.makeText(getActivity(), user.getFirst_name(), Toast.LENGTH_LONG).show();
+
+                    GoToMain(user);
 
                 } catch (JSONException e) {
                     errorLogin("Error");
@@ -135,20 +174,28 @@ public class LoginFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String response;
-                try {
-                    response = new String(error.networkResponse.data,"UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    response = "UnsupportedEncodingException";
-                    Log.e("SignIn", e.toString());
-                }
-                errorLogin(response);
-                Log.w("Login" ,error.toString());
+                errorResponse(error);
             }
         });
+        return jsonRequest;
+    }
 
+    private void GoToMain(User user) {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
 
-        queue.add(jsonRequest);
+    private void errorResponse(VolleyError error) {
+        String response;
+        try {
+            response = new String(error.networkResponse.data,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            response = "UnsupportedEncodingException";
+            Log.e("SignIn", e.toString());
+        }
+        errorLogin(response);
+        Log.w("Login" , error.toString());
     }
 
     private void errorLogin(String errorText){
