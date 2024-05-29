@@ -1,7 +1,5 @@
 package com.example.hobbyt.utils;
 
-import java.util.Arrays;
-
 public class UrlMap {
     private final static int STEP_SIZE = 2;
 
