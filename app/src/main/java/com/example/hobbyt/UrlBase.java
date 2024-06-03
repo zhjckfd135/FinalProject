@@ -9,4 +9,6 @@ public final class UrlBase {
     public final static String LOGIN_TOKEN = HOME + "api/user/loginToken";
     public final static String ADD_RECORD = HOME + "api/records/newRecord";
     public final static String ADD_PRIMARY_TO_RECORD = HOME + "api/records/addPrimary";
+    public final static String GET_RECORD = HOME + "api/records/getRecords";
+    public final static String UPDATE_RECORD = HOME + "api/records/updateRecords";
 }

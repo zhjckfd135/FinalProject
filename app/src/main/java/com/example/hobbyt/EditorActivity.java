@@ -13,27 +13,26 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.hobbyt.modules.Record;
 import com.example.hobbyt.utils.UrlMap;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EditorActivity extends AppCompatActivity {
 
+    Record record;
     EditText editText;
     EditText titleEditText;
     Button backButton;
@@ -52,17 +51,23 @@ public class EditorActivity extends AppCompatActivity {
             return insets;
         });
 
-        InitFields();
+        InitFields(savedInstanceState);
         SetListeners();
     }
 
-    private void InitFields() {
+    private void InitFields(Bundle bundle) {
         editText = findViewById(R.id.editTextEditor);
         backButton = findViewById(R.id.editorBackButton);
         saveButton = findViewById(R.id.editorSaveButton);
         titleEditText = findViewById(R.id.editTextTitle);
 
         loginSharedPreferences = getSharedPreferences(LoginFragment.LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+
+        record = (Record) getIntent().getSerializableExtra("record");
+        if(record != null){
+            editText.setText(record.getData());
+            titleEditText.setText(record.getTitle());
+        }
     }
 
     private void SetListeners() {
@@ -82,7 +87,6 @@ public class EditorActivity extends AppCompatActivity {
 
     private void saveRecord(){
         RequestQueue queue = Volley.newRequestQueue(this);
-        String urlBase = UrlBase.ADD_RECORD;
 
         saveButton.setText("Saving...");
         saveButton.setClickable(false);
@@ -90,12 +94,7 @@ public class EditorActivity extends AppCompatActivity {
 
 
 
-        UrlMap urlMap = new UrlMap(urlBase);
-        urlMap.put("user_id", loginSharedPreferences.getString(LoginFragment.USER_ID_PREFERENCES, ""));
-        urlMap.put("title", editText.getText().toString());
-        urlMap.put("data", titleEditText.getText().toString());
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlMap.generateUrl(), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getUrl().generateUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.equalsIgnoreCase("success")){
@@ -111,6 +110,26 @@ public class EditorActivity extends AppCompatActivity {
         });
 
         queue.add(stringRequest);
+    }
+
+    private UrlMap getUrl(){
+        UrlMap urlMap = null;
+        if(record == null){
+            urlMap = new UrlMap(UrlBase.ADD_RECORD);
+            urlMap.put("user_id", loginSharedPreferences.getString(LoginFragment.USER_ID_PREFERENCES, ""));
+            urlMap.put("title", editText.getText().toString());
+            urlMap.put("data", titleEditText.getText().toString());
+
+        }else {
+            urlMap = new UrlMap(UrlBase.UPDATE_RECORD);
+            urlMap.put("record_id", Integer.toString(record.getId()));
+            urlMap.put("title", editText.getText().toString());
+            urlMap.put("data", titleEditText.getText().toString());
+        }
+
+
+
+        return urlMap;
     }
 
     private void ShowError(VolleyError error) {

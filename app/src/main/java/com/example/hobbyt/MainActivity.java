@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loginSharedPreferences = getSharedPreferences(LoginFragment.LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+
+        if(!loginSharedPreferences.contains(LoginFragment.USER_ID_PREFERENCES)) {
+            GoToActivity(AuthorizationActivity.class);
+        }
+        loginTokenUser();
     }
 
     private void NavigationViewListener() {
@@ -78,10 +83,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if(!loginSharedPreferences.contains(LoginFragment.USER_ID_PREFERENCES)) {
-            GoToActivity(AuthorizationActivity.class);
-        }
-        loginTokenUser();
+
     }
 
     private void loginTokenUser(){
@@ -106,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
                             response.getString("password")
 
                     );
-
-                    Toast.makeText(getBaseContext(), "Welcome " + user.getFirst_name() + " " + user.getLast_name(), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     Log.w("Login" ,e.toString());
                 }

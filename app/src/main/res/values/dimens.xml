@@ -2,7 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">6dp</dimen>
-    <dimen name="record_element_height">130dp</dimen>
+    <dimen name="record_element_height">100dp</dimen>
     <dimen name="authorization_field_width">300dp</dimen>
     <dimen name="authorization_field_margin">3dp</dimen>
     <dimen name="edit_text_padding">5dp</dimen>
