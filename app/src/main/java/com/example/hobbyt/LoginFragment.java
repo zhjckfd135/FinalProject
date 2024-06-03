@@ -41,6 +41,8 @@ public class LoginFragment extends Fragment {
     public static final String LOGIN_PREFERENCES = "login";
     public static final String USER_ID_PREFERENCES = "user_id";
     public static final String TOKEN_PREFERENCES = "token";
+    public static final String USER_FIRST_NAME = "first_name";
+    public static final String USER_LAST_NAME = "last_name";
 
     private View view;
     private TextView signupText;
@@ -159,9 +161,7 @@ public class LoginFragment extends Fragment {
                     User user = new User(response.getInt("user_id"),
                                         response.getString("first_name"),
                                         response.getString("last_name"),
-                                        response.getString("email"),
-                                        response.getString("password")
-
+                                        response.getString("email")
                                             );
 
                     GoToMain(user);

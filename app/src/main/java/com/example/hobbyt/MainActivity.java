@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.hobbyt.databinding.ActivityMainBinding;
 import com.example.hobbyt.modules.User;
@@ -106,8 +106,14 @@ public class MainActivity extends AppCompatActivity {
                             response.getString("last_name"),
                             response.getString("email"),
                             response.getString("password")
-
                     );
+
+                    SharedPreferences.Editor editor = loginSharedPreferences.edit();
+                    editor.putString(LoginFragment.USER_FIRST_NAME, user.getFirst_name());
+                    editor.putString(LoginFragment.USER_LAST_NAME, user.getLast_name());
+                    editor.apply();
+
+
                 } catch (JSONException e) {
                     Log.w("Login" ,e.toString());
                 }
