@@ -117,8 +117,8 @@ public class EditorActivity extends AppCompatActivity {
         if(record == null){
             urlMap = new UrlMap(UrlBase.ADD_RECORD);
             urlMap.put("user_id", loginSharedPreferences.getString(LoginFragment.USER_ID_PREFERENCES, ""));
-            urlMap.put("title", editText.getText().toString());
-            urlMap.put("data", titleEditText.getText().toString());
+            urlMap.put("title", titleEditText.getText().toString());
+            urlMap.put("data", editText.getText().toString());
 
         }else {
             urlMap = new UrlMap(UrlBase.UPDATE_RECORD);

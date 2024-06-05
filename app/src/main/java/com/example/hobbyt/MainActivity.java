@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     User user = new User(response.getInt("user_id"),
                             response.getString("first_name"),
                             response.getString("last_name"),
-                            response.getString("email"),
-                            response.getString("password")
+                            response.getString("email")
                     );
 
                     SharedPreferences.Editor editor = loginSharedPreferences.edit();

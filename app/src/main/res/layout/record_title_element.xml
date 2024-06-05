@@ -9,7 +9,7 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/record_element_height"
+        android:layout_height="@dimen/height_user_element"
         android:orientation="horizontal"
         android:gravity="start"
         android:layout_margin="@dimen/activity_horizontal_margin"
@@ -20,44 +20,25 @@
             android:layout_width="10dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:tint="@color/button"
+            app:tint="@color/white"
             app:srcCompat="@drawable/baseline_text" />
 
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titleTextElement"
+                android:id="@+id/recordTitleElement"
                 android:layout_height="0dp"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:maxLength="30"
                 android:textSize="30dp"
                 android:text="Title"
-                android:textColor="@color/button"/>
-            <TextView
-                android:id="@+id/dataTextElement"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textSize="20dp"
-                android:text="Text"
-                android:textColor="@color/foreground" />
-
+                android:textColor="@color/white"/>
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/imageButtonDeleteRecordElement"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:srcCompat="@drawable/ic_cross"
-            android:background="@android:color/transparent"
-            app:tint="@color/button"
-             />
 
     </LinearLayout>
 
@@ -65,5 +46,5 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         app:srcCompat="@drawable/ic_line"
-        app:tint="@color/foreground" />
+        app:tint="@color/white" />
 </LinearLayout>
